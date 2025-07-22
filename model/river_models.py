@@ -35,9 +35,12 @@ class RideModel:
         self.eta_rmse = metrics.RMSE()
 
     def predict(self, x):
+        fare = self.fare_model.predict_one(x)
+        eta = self.eta_model.predict_one(x)
+
         return {
-            "fare_pred": self.fare_model.predict_one(x),
-            "eta_pred": self.eta_model.predict_one(x)
+            "fare_pred": max(0.0, fare),
+            "eta_pred": max(0.0, eta)
         }
 
     def update(self, x, y):
