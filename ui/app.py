@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import altair as alt
 
 import sys
 import os
@@ -49,7 +50,6 @@ with tab1:
     if idx < 20:
         st.warning("⚠️ Model is still warming up — predictions may be less accurate for early samples.")
 
-
     col1, col2 = st.columns(2)
     with col1:
         st.metric("Actual Fare (₹)", round(y["fare_amount"], 2))
@@ -72,7 +72,29 @@ with tab2:
     with col2:
         st.metric("ETA RMSE", round(model.eta_rmse.get(), 2))
 
-    st.caption("Drift detection (e.g., ADWIN/Tree) will be visualized here later.")
+    st.markdown("### Fare Drift Score (HST)")
+    fare_df = pd.DataFrame({
+        "index": list(range(len(model.fare_drift_scores))),
+        "drift_score": model.fare_drift_scores
+    })
+    st.altair_chart(
+        alt.Chart(fare_df).mark_line().encode(
+            x="index", y="drift_score"
+        ).properties(height=200),
+        use_container_width=True
+    )
+
+    st.markdown("### ETA Drift Score (HST)")
+    eta_df = pd.DataFrame({
+        "index": list(range(len(model.eta_drift_scores))),
+        "drift_score": model.eta_drift_scores
+    })
+    st.altair_chart(
+        alt.Chart(eta_df).mark_line().encode(
+            x="index", y="drift_score"
+        ).properties(height=200),
+        use_container_width=True
+    )
 
 # ---- Tab 3: Latency Monitor ----
 with tab3:
@@ -91,4 +113,3 @@ with tab4:
 
     st.caption("Adjust simulation interval, enable/disable online updates, change models.")
     st.write("🚧 Settings will be interactive in a later version.")
-

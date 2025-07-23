@@ -34,6 +34,11 @@ class RideModel:
         self.eta_mae = metrics.MAE()
         self.eta_rmse = metrics.RMSE()
 
+        # Drift score buffers
+        self.fare_drift_scores = []
+        self.eta_drift_scores = []
+        self.max_drift_scores = 100  # Rolling window size
+
     def predict(self, x):
         fare = self.fare_model.predict_one(x)
         eta = self.eta_model.predict_one(x)
@@ -50,6 +55,19 @@ class RideModel:
         # Update drift detectors
         self.fare_drift.learn_one(x)
         self.eta_drift.learn_one(x)
+
+        # Get drift scores
+        fare_score = self.fare_drift.score_one(x)
+        eta_score = self.eta_drift.score_one(x)
+
+        self.fare_drift_scores.append(fare_score)
+        self.eta_drift_scores.append(eta_score)
+
+        # Keep buffer size fixed
+        if len(self.fare_drift_scores) > self.max_drift_scores:
+            self.fare_drift_scores.pop(0)
+        if len(self.eta_drift_scores) > self.max_drift_scores:
+            self.eta_drift_scores.pop(0)
 
         # Update metrics
         fare_pred = self.fare_model.predict_one(x)
