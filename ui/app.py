@@ -190,8 +190,6 @@ with tab1:
 with tab2:
     st.title("📈 Model Drift & Rolling Error")
 
-    st.write("Real-time rolling metrics help you monitor model health over time.")
-
     col1, col2 = st.columns(2)
     with col1:
         st.metric("Fare RMSE", round(model.fare_rmse.get(), 2))
@@ -199,20 +197,44 @@ with tab2:
         st.metric("ETA RMSE", round(model.eta_rmse.get(), 2))
 
     st.subheader("📉 Drift Score History")
-
-    # Plot drift scores
     fig, ax = plt.subplots(1, 2, figsize=(12, 4))
-    ax[0].plot(model.fare_drift_scores, color='orange')
+
+    # Fare Drift Plot
+    ax[0].plot(model.fare_drift_scores, color='orange', label='Fare Drift')
     ax[0].set_title("Fare Drift Score")
     ax[0].set_ylabel("Anomaly Score")
-    ax[1].plot(model.eta_drift_scores, color='blue')
+    ax[0].set_xlabel("Ride #")
+    ax[0].legend()
+    ax[0].grid(True)
+
+    # ETA Drift Plot
+    ax[1].plot(model.eta_drift_scores, color='blue', label='ETA Drift')
     ax[1].set_title("ETA Drift Score")
+    ax[1].set_ylabel("Anomaly Score")
+    ax[1].set_xlabel("Ride #")
+    ax[1].legend()
+    ax[1].grid(True)
     st.pyplot(fig)
 
+    st.subheader("📊 Rolling RMSE vs Baseline")
+
+    fig2, ax2 = plt.subplots(1, 2, figsize=(14, 4))
+    ax2[0].plot(model.fare_rmse_history[-100:], label="Model RMSE", color='green')
+    ax2[0].plot(model.fare_baseline_rmse[-100:], label="Baseline RMSE", color='gray', linestyle="--")
+    ax2[0].set_title("Fare RMSE Comparison")
+    ax2[0].legend()
+
+    ax2[1].plot(model.eta_rmse_history[-100:], label="Model RMSE", color='purple')
+    ax2[1].plot(model.eta_baseline_rmse[-100:], label="Baseline RMSE", color='gray', linestyle="--")
+    ax2[1].set_title("ETA RMSE Comparison")
+    ax2[1].legend()
+    st.pyplot(fig2)
+
     st.info(f"ℹ️ Fare Drift Buffer Length: {len(model.fare_drift_scores)}")
-    st.code(model.fare_drift_scores)
+    st.code(model.fare_drift_scores[-5:])
     st.info(f"ℹ️ ETA Drift Buffer Length: {len(model.eta_drift_scores)}")
-    st.code(model.eta_drift_scores[:5])
+    st.code(model.eta_drift_scores[-5:])
+
 
 # ---- Tab 3: Latency Monitor ----
 with tab3:

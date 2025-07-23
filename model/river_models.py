@@ -1,18 +1,16 @@
 from river import linear_model, metrics, preprocessing, compose, anomaly, optim
+import statistics
 
 class RideModel:
     def __init__(self):
-        # Feature preprocessor
         self.scaler = preprocessing.StandardScaler()
         self.encoder = preprocessing.OneHotEncoder()
 
-        # Feature pipeline
         self.features = compose.TransformerUnion(
             ('scaled', self.scaler),
             ('encoded', self.encoder)
         )
 
-        # Models for fare and duration
         self.fare_model = compose.Pipeline(
             self.features,
             linear_model.LinearRegression(optimizer=optim.SGD(0.01))
@@ -23,13 +21,11 @@ class RideModel:
             linear_model.LinearRegression(optimizer=optim.SGD(0.01))
         )
 
-        # Drift detector with scoring enabled
-        self.fare_drift = anomaly.HalfSpaceTrees(
-            seed=42, n_trees=10, height=3, window_size=25
-        )
-        self.eta_drift = anomaly.HalfSpaceTrees(
-            seed=42, n_trees=10, height=3, window_size=25
-        )
+        # Drift detection
+        self.fare_drift = anomaly.HalfSpaceTrees(seed=42, n_trees=5, height=2, window_size=10)
+        self.eta_drift = anomaly.HalfSpaceTrees(seed=24, n_trees=5, height=2, window_size=10)
+
+
 
         # Rolling metrics
         self.fare_mae = metrics.MAE()
@@ -37,15 +33,22 @@ class RideModel:
         self.eta_mae = metrics.MAE()
         self.eta_rmse = metrics.RMSE()
 
-        # Drift buffers
+        # Buffers
         self.total_updates = 0
         self.fare_drift_scores = []
         self.eta_drift_scores = []
+        self.fare_rmse_history = []
+        self.eta_rmse_history = []
+
+        # Baseline buffers
+        self.fare_values = []
+        self.eta_values = []
+        self.fare_baseline_rmse = []
+        self.eta_baseline_rmse = []
 
     def predict(self, x):
         fare = self.fare_model.predict_one(x)
         eta = self.eta_model.predict_one(x)
-
         return {
             "fare_pred": max(0.0, fare),
             "eta_pred": max(0.0, eta)
@@ -67,11 +70,27 @@ class RideModel:
         self.eta_mae.update(eta_true, eta_pred)
         self.eta_rmse.update(eta_true, eta_pred)
 
+        self.fare_rmse_history.append(self.fare_rmse.get())
+        self.eta_rmse_history.append(self.eta_rmse.get())
+
+        # Baseline model (mean predictor)
+        self.fare_values.append(fare_true)
+        self.eta_values.append(eta_true)
+
+        fare_mean = statistics.mean(self.fare_values)
+        eta_mean = statistics.mean(self.eta_values)
+
+        fare_baseline_rmse = ((fare_true - fare_mean) ** 2) ** 0.5
+        eta_baseline_rmse = ((eta_true - eta_mean) ** 2) ** 0.5
+
+        self.fare_baseline_rmse.append(fare_baseline_rmse)
+        self.eta_baseline_rmse.append(eta_baseline_rmse)
+
         # Online model update
         self.fare_model.learn_one(x, fare_true)
         self.eta_model.learn_one(x, eta_true)
 
-        # Drift scoring + update
+        # Drift
         self.fare_drift.learn_one(x)
         self.eta_drift.learn_one(x)
 
