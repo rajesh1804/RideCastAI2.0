@@ -1,5 +1,4 @@
-from river import linear_model, metrics, preprocessing, compose, anomaly
-from river import optim
+from river import linear_model, metrics, preprocessing, compose, anomaly, optim
 
 class RideModel:
     def __init__(self):
@@ -24,9 +23,13 @@ class RideModel:
             linear_model.LinearRegression(optimizer=optim.SGD(0.01))
         )
 
-        # Drift detector (per model)
-        self.fare_drift = anomaly.HalfSpaceTrees(seed=42)
-        self.eta_drift = anomaly.HalfSpaceTrees(seed=42)
+        # Drift detector with scoring enabled
+        self.fare_drift = anomaly.HalfSpaceTrees(
+            seed=42, n_trees=10, height=3, window_size=25
+        )
+        self.eta_drift = anomaly.HalfSpaceTrees(
+            seed=42, n_trees=10, height=3, window_size=25
+        )
 
         # Rolling metrics
         self.fare_mae = metrics.MAE()
@@ -34,10 +37,10 @@ class RideModel:
         self.eta_mae = metrics.MAE()
         self.eta_rmse = metrics.RMSE()
 
-        # Drift score buffers
+        # Drift buffers
+        self.total_updates = 0
         self.fare_drift_scores = []
         self.eta_drift_scores = []
-        self.max_drift_scores = 100  # Rolling window size
 
     def predict(self, x):
         fare = self.fare_model.predict_one(x)
@@ -49,30 +52,16 @@ class RideModel:
         }
 
     def update(self, x, y):
+        self.total_updates += 1
+
         fare_true = y['fare_amount']
         eta_true = y['duration_min']
 
-        # Update drift detectors
-        self.fare_drift.learn_one(x)
-        self.eta_drift.learn_one(x)
-
-        # Get drift scores
-        fare_score = self.fare_drift.score_one(x)
-        eta_score = self.eta_drift.score_one(x)
-
-        self.fare_drift_scores.append(fare_score)
-        self.eta_drift_scores.append(eta_score)
-
-        # Keep buffer size fixed
-        if len(self.fare_drift_scores) > self.max_drift_scores:
-            self.fare_drift_scores.pop(0)
-        if len(self.eta_drift_scores) > self.max_drift_scores:
-            self.eta_drift_scores.pop(0)
-
-        # Update metrics
+        # Predict before update
         fare_pred = self.fare_model.predict_one(x)
         eta_pred = self.eta_model.predict_one(x)
 
+        # Update metrics
         self.fare_mae.update(fare_true, fare_pred)
         self.fare_rmse.update(fare_true, fare_pred)
         self.eta_mae.update(eta_true, eta_pred)
@@ -81,3 +70,16 @@ class RideModel:
         # Online model update
         self.fare_model.learn_one(x, fare_true)
         self.eta_model.learn_one(x, eta_true)
+
+        # Drift scoring + update
+        self.fare_drift.learn_one(x)
+        self.eta_drift.learn_one(x)
+
+        fare_score = self.fare_drift.score_one(x)
+        eta_score = self.eta_drift.score_one(x)
+
+        print(f"[Update] Total updates: {self.total_updates}")
+        print(f"[Drift Scores] Fare: {fare_score:.3f} | ETA: {eta_score:.3f}")
+
+        self.fare_drift_scores.append(fare_score)
+        self.eta_drift_scores.append(eta_score)
