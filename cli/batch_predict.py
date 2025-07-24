@@ -6,7 +6,7 @@ import argparse
 from tqdm import tqdm
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from model.river_models import RideModel
+from model.river_models import RideModel, CACHE_STATS
 from utils.latency_tracker import LatencyTracker
 
 def run_batch_prediction(csv_path="data/rides.csv", max_samples=100, output_dir="cli_outputs"):
@@ -74,6 +74,11 @@ def run_batch_prediction(csv_path="data/rides.csv", max_samples=100, output_dir=
     print(f"📊 Fare RMSE: {fare_rmse:.2f} | ETA RMSE: {eta_rmse:.2f}")
     print(f"⚡ Latency (ms): {latency_stats}")
     print(f"📝 Outputs written to: {csv_file}, {json_file}")
+
+    print("✅ Cache Stats:")
+    print(f"Fare:  Hits = {CACHE_STATS['fare_hits']}, Misses = {CACHE_STATS['fare_misses']}")
+    print(f"ETA:   Hits = {CACHE_STATS['eta_hits']}, Misses = {CACHE_STATS['eta_misses']}")
+
 
 
 if __name__ == "__main__":

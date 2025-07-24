@@ -4,11 +4,43 @@ from collections import defaultdict, deque
 import statistics
 import random
 import heapq
-from model.onnx_inference import ONNXWrapper
-import joblib
-import hashlib
-import json
+from joblib import Memory
 
+# Global cache counters
+CACHE_STATS = {
+    "fare_hits": 0,
+    "fare_misses": 0,
+    "eta_hits": 0,
+    "eta_misses": 0
+}
+
+# Track rolling hit ratios
+CACHE_HIT_HISTORY = {
+    "fare": [],
+    "eta": []
+}
+
+def log_cache_ratio():
+    total_fare = CACHE_STATS["fare_hits"] + CACHE_STATS["fare_misses"]
+    total_eta = CACHE_STATS["eta_hits"] + CACHE_STATS["eta_misses"]
+
+    fare_ratio = CACHE_STATS["fare_hits"] / total_fare if total_fare > 0 else 0
+    eta_ratio = CACHE_STATS["eta_hits"] / total_eta if total_eta > 0 else 0
+
+    CACHE_HIT_HISTORY["fare"].append(round(fare_ratio * 100, 2))
+    CACHE_HIT_HISTORY["eta"].append(round(eta_ratio * 100, 2))
+
+def reset_cache_stats():
+    CACHE_STATS["fare_hits"] = 0
+    CACHE_STATS["fare_misses"] = 0
+    CACHE_STATS["eta_hits"] = 0
+    CACHE_STATS["eta_misses"] = 0
+    CACHE_HIT_HISTORY["fare"].clear()
+    CACHE_HIT_HISTORY["eta"].clear()
+
+
+# Setup joblib caching directory
+memory = Memory(location="cache", verbose=0)
 
 
 class BinningTransformer(base.Transformer):
@@ -117,6 +149,20 @@ class ErrorTracker:
         return fare_errors, eta_errors
 
 
+@memory.cache
+def cached_fare_prediction(x_dict_serialized):
+    global _fare_model
+    CACHE_STATS["fare_misses"] += 1  # Joblib only calls this if cache MISS
+    return _fare_model.predict_one(x_dict_serialized)
+
+
+@memory.cache
+def cached_eta_prediction(x_dict_serialized):
+    global _eta_model
+    CACHE_STATS["eta_misses"] += 1  # Called only if cache MISS
+    return _eta_model.predict_one(x_dict_serialized)
+
+
 class ModelTrainer:
     def __init__(self):
         self.scaler = preprocessing.StandardScaler()
@@ -128,41 +174,29 @@ class ModelTrainer:
         )
         self.fare_model = compose.Pipeline(self.features, linear_model.LinearRegression(optimizer=optim.SGD(0.01)))
         self.eta_model = compose.Pipeline(self.features, linear_model.LinearRegression(optimizer=optim.SGD(0.01)))
-        self.fare_onnx = None
-        self.eta_onnx = None
-        self.prediction_cache = joblib.Memory(location="cache/", verbose=0)
-
-    def _get_cache_key(self, x):
-        # Convert dict to stable string → hash
-        x_str = json.dumps(x, sort_keys=True)
-        return hashlib.md5(x_str.encode()).hexdigest()
 
     def predict(self, x):
-        x_transformed = self.features.transform_one(x)
-        cache_key = self._get_cache_key(x_transformed)
+        # Serialize the feature dict to make it hashable for caching
+        x_serialized = {k: float(v) if isinstance(v, (int, float)) else str(v) for k, v in x.items()}
+        global _fare_model, _eta_model
+        _fare_model = self.fare_model
+        _eta_model = self.eta_model
 
-        @self.prediction_cache.cache(ignore=['self'])
-        def _cached_predict(cache_key_inner):
-            if self.fare_onnx and self.eta_onnx:
-                fare_pred = self.fare_onnx.predict(x_transformed)
-                eta_pred = self.eta_onnx.predict(x_transformed)
-            else:
-                fare_pred = self.fare_model.predict_one(x)
-                eta_pred = self.eta_model.predict_one(x)
+        # Manual cache check
+        if cached_fare_prediction.check_call_in_cache(x_serialized):
+            CACHE_STATS["fare_hits"] += 1
+        fare_pred = cached_fare_prediction(x_serialized)
 
-                # Initialize ONNX after first learn
-                if hasattr(self.fare_model[-1], "sklearn_model"):
-                    self.fare_onnx = ONNXWrapper(self.fare_model[-1].sklearn_model, "fare_model")
-                if hasattr(self.eta_model[-1], "sklearn_model"):
-                    self.eta_onnx = ONNXWrapper(self.eta_model[-1].sklearn_model, "eta_model")
+        if cached_eta_prediction.check_call_in_cache(x_serialized):
+            CACHE_STATS["eta_hits"] += 1
+        eta_pred = cached_eta_prediction(x_serialized)
 
-            return max(0.0, fare_pred), max(0.0, eta_pred)
+        log_cache_ratio()
 
-        fare_pred, eta_pred = _cached_predict(cache_key)
-        return {"fare_pred": fare_pred, "eta_pred": eta_pred}
-
-    def clear_cache(self):
-        self.prediction_cache.clear()
+        return {
+            "fare_pred": max(0.0, fare_pred),
+            "eta_pred": max(0.0, eta_pred)
+        }
 
     def learn(self, x, y):
         self.fare_model.learn_one(x, y['fare_amount'])
