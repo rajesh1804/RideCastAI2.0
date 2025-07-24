@@ -67,7 +67,7 @@ with tab0:
     """)
 
     with st.expander("📉 Architecture Diagram"):
-        st.image("assets/RideCastAI2.0-architecture.png", caption="RideCastAI 2.0 Architecture")
+        st.image("https://raw.githubusercontent.com/rajesh1804/RideCastAI2.0/refs/heads/main/assets/RideCastAI2.0-architecture.png", caption="RideCastAI 2.0 Architecture")
 
 
 with tab1:
