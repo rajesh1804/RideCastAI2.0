@@ -35,18 +35,39 @@ if st.session_state.logs:
     last = st.session_state.logs[-1]
     st.sidebar.caption(f"📌 Last Prediction:\n\n{last}")
 
+st.sidebar.markdown("---")
+st.sidebar.markdown("Check out 🚖 [RideCastAI 1.0](https://huggingface.co/spaces/rajesh1804/RideCastAI).", unsafe_allow_html=True)
+
 st.markdown("""
 # 🛰️ RideCastAI 2.0  
 #### Real-Time Fare & ETA Prediction with Self-Healing Drift Detection 
 """)
 
 
-tab1, tab2, tab3, tab4 = st.tabs([
+tab0, tab1, tab2, tab3, tab4 = st.tabs([
+    "📘 Overview",
     "🔮 Live Prediction", 
     "📈 Model Drift & Metrics", 
     "⚡ Latency & Cache", 
     "🛠️ Settings"
 ])
+
+with tab0:
+    st.title("📘 RideCastAI 2.0 Overview")
+    st.markdown("""
+    RideCastAI 2.0 is a real-time ML system for fare and ETA prediction in ride-hailing platforms.
+
+    - 🔄 **Online Learning**: Model updates after every prediction.
+    - 📉 **Dual Drift Detection**: Tracks input anomalies and error spikes.
+    - ⚡ **ONNX + Caching Ready**: Optimized for fast, duplicate-tolerant inference.
+    - 🧪 **Stress-Test Mode**: Injects drift to test self-healing capabilities.
+    - 📈 **Developer Observability**: Live RMSE, drift, cache stats and latency graphs.
+
+    Originally built as a static ML pipeline [RideCastAI 1.0](https://huggingface.co/spaces/rajesh1804/RideCastAI), this new version mimics a real production ML system under noisy, ever-changing data.
+    """)
+
+    with st.expander("📉 Architecture Diagram"):
+        st.image("assets/RideCastAI2.0-architecture.png", caption="RideCastAI 2.0 Architecture")
 
 
 with tab1:
@@ -204,31 +225,17 @@ with tab3:
 
 with tab4:
     st.title("🛠️ Settings")
-    st.caption("Toggle drift or online updates.")
-    st.session_state.model.inject_drift = st.checkbox("🧪 Inject Drift (Demo Only)", value=model.inject_drift)
-    st.session_state.model.enable_online_update = st.checkbox("🔄 Enable Online Updates", value=model.enable_online_update)
-
-    if st.button("🔁 Reset Model (Dev Only)"):
-        st.session_state.model = RideModel()
-        st.session_state.logs = []
-        st.success("Model and logs reset.")
-
-    with st.expander("🧠 What is RideCastAI 2.0?"):
-        st.markdown("""
-    RideCastAI 2.0 is a real-time ML system for fare and ETA prediction in ride-hailing platforms.
-
-    - 🔄 **Online Learning**: Model updates after every prediction.
-    - 📉 **Dual Drift Detection**: Tracks input anomalies and error spikes.
-    - ⚡ **ONNX + Caching Ready**: Optimized for fast, duplicate-tolerant inference.
-    - 🧪 **Stress-Test Mode**: Injects drift to test self-healing capabilities.
-    - 📈 **Developer Observability**: Live RMSE, drift, cache stats and latency graphs.
-
-    Originally built as a static ML pipeline [RideCastAI 1.0](https://huggingface.co/spaces/rajesh1804/RideCastAI), this new version mimics a real production ML system under noisy, ever-changing data.
-    """)
-
-
-    with st.expander("📉 Architecture Diagram"):
-        st.image("https://i.imgur.com/YxZgvXx.png", caption="RideCastAI 2.0 Architecture")
+    col8, col9 = st.columns(2)
+    with col8:
+        st.caption("Toggle drift or online updates.")
+        st.session_state.model.inject_drift = st.checkbox("🧪 Inject Drift (Demo Only)", value=model.inject_drift)
+        st.session_state.model.enable_online_update = st.checkbox("🔄 Enable Online Updates", value=model.enable_online_update)
+    with col9:
+        st.caption("Resetting model will clear all logs and metrics.")
+        if st.button("🔁 Reset Model (Dev Only)"):        
+            st.session_state.model = RideModel()
+            st.session_state.logs = []
+            st.success("Model and logs reset.")
 
 st.markdown("---")
 st.markdown("""
