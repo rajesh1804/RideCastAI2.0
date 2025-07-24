@@ -5,6 +5,10 @@ import statistics
 import random
 import heapq
 from model.onnx_inference import ONNXWrapper
+import joblib
+import hashlib
+import json
+
 
 
 class BinningTransformer(base.Transformer):
@@ -126,30 +130,39 @@ class ModelTrainer:
         self.eta_model = compose.Pipeline(self.features, linear_model.LinearRegression(optimizer=optim.SGD(0.01)))
         self.fare_onnx = None
         self.eta_onnx = None
+        self.prediction_cache = joblib.Memory(location="cache/", verbose=0)
 
+    def _get_cache_key(self, x):
+        # Convert dict to stable string → hash
+        x_str = json.dumps(x, sort_keys=True)
+        return hashlib.md5(x_str.encode()).hexdigest()
 
     def predict(self, x):
         x_transformed = self.features.transform_one(x)
+        cache_key = self._get_cache_key(x_transformed)
 
-        # If ONNX is initialized, use it
-        if self.fare_onnx and self.eta_onnx:
-            fare_pred = self.fare_onnx.predict(x_transformed)
-            eta_pred = self.eta_onnx.predict(x_transformed)
-        else:
-            fare_pred = self.fare_model.predict_one(x)
-            eta_pred = self.eta_model.predict_one(x)
+        @self.prediction_cache.cache(ignore=['self'])
+        def _cached_predict(cache_key_inner):
+            if self.fare_onnx and self.eta_onnx:
+                fare_pred = self.fare_onnx.predict(x_transformed)
+                eta_pred = self.eta_onnx.predict(x_transformed)
+            else:
+                fare_pred = self.fare_model.predict_one(x)
+                eta_pred = self.eta_model.predict_one(x)
 
-            # Initialize ONNX only once — after first fit
-            if hasattr(self.fare_model[-1], "sklearn_model"):
-                self.fare_onnx = ONNXWrapper(self.fare_model[-1].sklearn_model, "fare_model")
-            if hasattr(self.eta_model[-1], "sklearn_model"):
-                self.eta_onnx = ONNXWrapper(self.eta_model[-1].sklearn_model, "eta_model")
+                # Initialize ONNX after first learn
+                if hasattr(self.fare_model[-1], "sklearn_model"):
+                    self.fare_onnx = ONNXWrapper(self.fare_model[-1].sklearn_model, "fare_model")
+                if hasattr(self.eta_model[-1], "sklearn_model"):
+                    self.eta_onnx = ONNXWrapper(self.eta_model[-1].sklearn_model, "eta_model")
 
-        return {
-            "fare_pred": max(0.0, fare_pred),
-            "eta_pred": max(0.0, eta_pred)
-        }
+            return max(0.0, fare_pred), max(0.0, eta_pred)
 
+        fare_pred, eta_pred = _cached_predict(cache_key)
+        return {"fare_pred": fare_pred, "eta_pred": eta_pred}
+
+    def clear_cache(self):
+        self.prediction_cache.clear()
 
     def learn(self, x, y):
         self.fare_model.learn_one(x, y['fare_amount'])
