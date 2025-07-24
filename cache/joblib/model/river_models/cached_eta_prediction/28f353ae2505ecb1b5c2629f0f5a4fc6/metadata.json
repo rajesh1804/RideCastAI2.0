@@ -1,1 +1,1 @@
-{"duration": 0.0, "input_args": {"x_dict_serialized": "{'pickup_lat': 12.956181, 'pickup_lon': 77.690143, 'dropoff_lat': 13.009799, 'dropoff_lon': 77.619732, 'distance_km': 9.68, 'traffic_level': 0.0}"}, "time": 1753343724.2457426}
+{"duration": 0.0019953250885009766, "input_args": {"x_dict_serialized": "{'pickup_lat': 12.956181, 'pickup_lon': 77.690143, 'dropoff_lat': 13.009799, 'dropoff_lon': 77.619732, 'distance_km': 9.68, 'traffic_level': 0.0}"}, "time": 1753348851.0098279}

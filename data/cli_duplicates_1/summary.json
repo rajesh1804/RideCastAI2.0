@@ -2,11 +2,11 @@
   "summary": {
     "total_rides": 100,
     "fare_rmse": 91.25,
-    "eta_rmse": 15.37,
+    "eta_rmse": 15.59,
     "latency_ms": {
-      "min": 3.91,
-      "max": 37.91,
-      "avg": 6.79
+      "min": 4.1,
+      "max": 38.11,
+      "avg": 6.34
     }
   },
   "fare_top_errors": [
@@ -83,7 +83,7 @@
   ],
   "eta_top_errors": [
     [
-      64.52562757375607,
+      66.36911146640574,
       {
         "pickup_lat": 12.991132,
         "pickup_lon": 77.534105,
@@ -92,12 +92,12 @@
         "distance_km": 19.14,
         "traffic_level": 2
       },
-      66.65920325447422,
-      2.1335756807181587,
-      96.8
+      67.23808820378216,
+      0.8689767373764095,
+      98.71
     ],
     [
-      46.011696170430135,
+      48.721750488169086,
       {
         "pickup_lat": 12.924244,
         "pickup_lon": 77.679711,
@@ -106,12 +106,12 @@
         "distance_km": 20.65,
         "traffic_level": 0
       },
-      46.12902198937415,
-      0.11732581894401761,
-      99.75
+      49.350760775772805,
+      0.6290102876037178,
+      98.73
     ],
     [
-      36.1994379665058,
+      37.49863066898696,
       {
         "pickup_lat": 12.903088,
         "pickup_lon": 77.693982,
@@ -120,26 +120,12 @@
         "distance_km": 21.28,
         "traffic_level": 0
       },
-      36.96748965989472,
-      0.7680516933889212,
-      97.92
+      38.2850542080505,
+      0.7864235390635316,
+      97.95
     ],
     [
-      19.42930510370457,
-      {
-        "pickup_lat": 12.96841,
-        "pickup_lon": 77.657035,
-        "dropoff_lat": 12.929951,
-        "dropoff_lon": 77.602847,
-        "distance_km": 7.26,
-        "traffic_level": 1
-      },
-      19.42930510370457,
-      0.0,
-      100.0
-    ],
-    [
-      19.20129233472303,
+      19.660588476588288,
       {
         "pickup_lat": 12.956181,
         "pickup_lon": 77.690143,
@@ -148,7 +134,21 @@
         "distance_km": 9.68,
         "traffic_level": 0
       },
-      19.20129233472303,
+      19.660588476588288,
+      0.0,
+      100.0
+    ],
+    [
+      15.73093981297593,
+      {
+        "pickup_lat": 12.96841,
+        "pickup_lon": 77.657035,
+        "dropoff_lat": 12.929951,
+        "dropoff_lon": 77.602847,
+        "distance_km": 7.26,
+        "traffic_level": 1
+      },
+      15.73093981297593,
       0.0,
       100.0
     ]
@@ -570,15 +570,15 @@
       "pred_fare": 0.0,
       "actual_eta": 16.03,
       "pred_eta": 0.0,
-      "latency_ms": 10.96
+      "latency_ms": 15.29
     },
     {
       "ride_id": 1,
       "actual_fare": 246.66,
       "pred_fare": 6.466559999999999,
       "actual_eta": 35.83,
-      "pred_eta": 0.7680516933889212,
-      "latency_ms": 5.15
+      "pred_eta": 0.7864235390635316,
+      "latency_ms": 6.87
     },
     {
       "ride_id": 2,
@@ -586,7 +586,7 @@
       "pred_fare": 0.0,
       "actual_eta": 11.75,
       "pred_eta": 0.0,
-      "latency_ms": 5.34
+      "latency_ms": 7.27
     },
     {
       "ride_id": 3,
@@ -594,47 +594,47 @@
       "pred_fare": 0.0,
       "actual_eta": 14.87,
       "pred_eta": 0.0,
-      "latency_ms": 37.91
+      "latency_ms": 5.65
     },
     {
       "ride_id": 4,
       "actual_fare": 248.43,
       "pred_fare": 10.207261365763985,
       "actual_eta": 63.33,
-      "pred_eta": 2.1335756807181587,
-      "latency_ms": 5.49
+      "pred_eta": 0.8689767373764095,
+      "latency_ms": 4.9
     },
     {
       "ride_id": 5,
       "actual_fare": 123.07,
       "pred_fare": 29.28224063223571,
       "actual_eta": 22.77,
-      "pred_eta": 6.333745867226472,
-      "latency_ms": 4.8
+      "pred_eta": 5.956797913703481,
+      "latency_ms": 5.32
     },
     {
       "ride_id": 6,
       "actual_fare": 80.81,
       "pred_fare": 20.400972980102402,
       "actual_eta": 7.02,
-      "pred_eta": 2.72615285820539,
-      "latency_ms": 4.38
+      "pred_eta": 2.377644577634383,
+      "latency_ms": 5.26
     },
     {
       "ride_id": 7,
       "actual_fare": 59.81,
       "pred_fare": 25.6298969591782,
       "actual_eta": 5.13,
-      "pred_eta": 3.5866827459056543,
-      "latency_ms": 5.28
+      "pred_eta": 3.1593281980970365,
+      "latency_ms": 4.34
     },
     {
       "ride_id": 8,
       "actual_fare": 126.48,
       "pred_fare": 43.199874419844605,
       "actual_eta": 22.99,
-      "pred_eta": 9.25256904667069,
-      "latency_ms": 6.83
+      "pred_eta": 8.88299215171811,
+      "latency_ms": 5.94
     },
     {
       "ride_id": 9,
@@ -642,103 +642,103 @@
       "pred_fare": 6.001450142541362,
       "actual_eta": 24.57,
       "pred_eta": 0.0,
-      "latency_ms": 5.14
+      "latency_ms": 5.68
     },
     {
       "ride_id": 10,
       "actual_fare": 162.94,
       "pred_fare": 29.6380095773054,
       "actual_eta": 21.65,
-      "pred_eta": 5.157870067136696,
-      "latency_ms": 5.83
+      "pred_eta": 5.376414182922353,
+      "latency_ms": 4.9
     },
     {
       "ride_id": 11,
       "actual_fare": 68.45,
       "pred_fare": 9.460477692267546,
       "actual_eta": 9.83,
-      "pred_eta": 1.114618170578888,
-      "latency_ms": 5.66
+      "pred_eta": 0.8259256206639245,
+      "latency_ms": 6.11
     },
     {
       "ride_id": 12,
       "actual_fare": 60.16,
       "pred_fare": 51.413642710848855,
       "actual_eta": 3.57,
-      "pred_eta": 7.9657703313477874,
-      "latency_ms": 5.88
+      "pred_eta": 7.6510842953645675,
+      "latency_ms": 5.66
     },
     {
       "ride_id": 13,
       "actual_fare": 157.29,
       "pred_fare": 42.050535097852844,
       "actual_eta": 31.35,
-      "pred_eta": 3.3092003057100983,
-      "latency_ms": 6.52
+      "pred_eta": 3.4668712763182397,
+      "latency_ms": 6.46
     },
     {
       "ride_id": 14,
       "actual_fare": 85.48,
       "pred_fare": 87.32685991262835,
       "actual_eta": 6.91,
-      "pred_eta": 11.608248023431901,
-      "latency_ms": 6.02
+      "pred_eta": 10.567171390289442,
+      "latency_ms": 5.28
     },
     {
       "ride_id": 15,
       "actual_fare": 139.5,
       "pred_fare": 111.3252253289921,
       "actual_eta": 26.44,
-      "pred_eta": 17.08586620344905,
-      "latency_ms": 5.48
+      "pred_eta": 16.83325982696443,
+      "latency_ms": 4.9
     },
     {
       "ride_id": 16,
       "actual_fare": 130.37,
       "pred_fare": 107.12178168958125,
       "actual_eta": 23.64,
-      "pred_eta": 15.413271181876713,
-      "latency_ms": 4.41
+      "pred_eta": 14.62467475217187,
+      "latency_ms": 5.21
     },
     {
       "ride_id": 17,
       "actual_fare": 114.41,
       "pred_fare": 90.64933652800376,
       "actual_eta": 15.69,
-      "pred_eta": 13.641241728641244,
-      "latency_ms": 4.26
+      "pred_eta": 12.394969629111543,
+      "latency_ms": 5.1
     },
     {
       "ride_id": 18,
       "actual_fare": 114.14,
       "pred_fare": 79.17678976053452,
       "actual_eta": 17.54,
-      "pred_eta": 14.570911720919195,
-      "latency_ms": 4.77
+      "pred_eta": 13.97420877282558,
+      "latency_ms": 4.52
     },
     {
       "ride_id": 19,
       "actual_fare": 144.43,
       "pred_fare": 56.704335475533924,
       "actual_eta": 20.38,
-      "pred_eta": 8.5541745552256,
-      "latency_ms": 4.82
+      "pred_eta": 8.364698305535612,
+      "latency_ms": 4.55
     },
     {
       "ride_id": 20,
       "actual_fare": 204.08,
       "pred_fare": 121.84145323179337,
       "actual_eta": 37.94,
-      "pred_eta": 20.796436999108963,
-      "latency_ms": 4.56
+      "pred_eta": 19.638717433180695,
+      "latency_ms": 5.27
     },
     {
       "ride_id": 21,
       "actual_fare": 78.82,
       "pred_fare": 18.741580184206974,
       "actual_eta": 7.62,
-      "pred_eta": 1.4527933404752984,
-      "latency_ms": 5.38
+      "pred_eta": 0.706988942667719,
+      "latency_ms": 4.64
     },
     {
       "ride_id": 22,
@@ -746,463 +746,463 @@
       "pred_fare": 0.0,
       "actual_eta": 30.48,
       "pred_eta": 0.0,
-      "latency_ms": 5.7
+      "latency_ms": 4.86
     },
     {
       "ride_id": 23,
       "actual_fare": 106.99,
       "pred_fare": 95.78208927564256,
       "actual_eta": 12.3,
-      "pred_eta": 14.205693601192008,
-      "latency_ms": 4.24
+      "pred_eta": 14.074280697280969,
+      "latency_ms": 5.88
     },
     {
       "ride_id": 24,
       "actual_fare": 223.17,
       "pred_fare": 92.02019318574168,
       "actual_eta": 41.48,
-      "pred_eta": 16.11422139213229,
-      "latency_ms": 4.87
+      "pred_eta": 16.49930057348243,
+      "latency_ms": 37.15
     },
     {
       "ride_id": 25,
       "actual_fare": 226.15,
       "pred_fare": 146.4182565527309,
       "actual_eta": 50.01,
-      "pred_eta": 24.65892520258614,
-      "latency_ms": 36.02
+      "pred_eta": 24.429653775817677,
+      "latency_ms": 7.04
     },
     {
       "ride_id": 26,
       "actual_fare": 191.74,
       "pred_fare": 152.24866000289825,
       "actual_eta": 44.32,
-      "pred_eta": 23.749863757575966,
-      "latency_ms": 4.47
+      "pred_eta": 24.301801831004518,
+      "latency_ms": 6.49
     },
     {
       "ride_id": 27,
       "actual_fare": 237.69,
       "pred_fare": 12.709083441425499,
       "actual_eta": 44.68,
-      "pred_eta": 0.11732581894401761,
-      "latency_ms": 4.55
+      "pred_eta": 0.6290102876037178,
+      "latency_ms": 7.85
     },
     {
       "ride_id": 28,
       "actual_fare": 186.66,
       "pred_fare": 130.2942105090944,
       "actual_eta": 32.59,
-      "pred_eta": 20.587032279662616,
-      "latency_ms": 4.7
+      "pred_eta": 21.253763235521255,
+      "latency_ms": 5.35
     },
     {
       "ride_id": 29,
       "actual_fare": 107.42,
       "pred_fare": 51.15239455605704,
       "actual_eta": 15.02,
-      "pred_eta": 7.905826780347093,
-      "latency_ms": 5.6
+      "pred_eta": 7.983006041081872,
+      "latency_ms": 5.02
     },
     {
       "ride_id": 30,
       "actual_fare": 100.6,
       "pred_fare": 68.33756796548387,
       "actual_eta": 11.34,
-      "pred_eta": 7.813082378863388,
-      "latency_ms": 14.43
+      "pred_eta": 7.428612856293324,
+      "latency_ms": 4.67
     },
     {
       "ride_id": 31,
       "actual_fare": 70.55,
       "pred_fare": 32.2735615272044,
       "actual_eta": 8.09,
-      "pred_eta": 4.772043284823377,
-      "latency_ms": 4.87
+      "pred_eta": 4.291196776549775,
+      "latency_ms": 4.95
     },
     {
       "ride_id": 32,
       "actual_fare": 128.14,
       "pred_fare": 112.74346324779981,
       "actual_eta": 23.92,
-      "pred_eta": 14.510074443749659,
-      "latency_ms": 6.45
+      "pred_eta": 14.529070318873966,
+      "latency_ms": 4.65
     },
     {
       "ride_id": 33,
       "actual_fare": 132.91,
       "pred_fare": 96.55527643524591,
       "actual_eta": 23.25,
-      "pred_eta": 15.047516294367508,
-      "latency_ms": 5.34
+      "pred_eta": 14.428363126867028,
+      "latency_ms": 5.6
     },
     {
       "ride_id": 34,
       "actual_fare": 124.89,
       "pred_fare": 68.62044826247819,
       "actual_eta": 19.34,
-      "pred_eta": 9.152038820233894,
-      "latency_ms": 4.65
+      "pred_eta": 9.536524329129668,
+      "latency_ms": 4.87
     },
     {
       "ride_id": 35,
       "actual_fare": 225.56,
       "pred_fare": 158.99854486327752,
       "actual_eta": 39.08,
-      "pred_eta": 29.339963777903037,
-      "latency_ms": 5.04
+      "pred_eta": 30.014019205383384,
+      "latency_ms": 4.91
     },
     {
       "ride_id": 36,
       "actual_fare": 63.78,
       "pred_fare": 6.85711179922955,
       "actual_eta": 5.6,
-      "pred_eta": 1.1849538022915418,
-      "latency_ms": 5.31
+      "pred_eta": 0.2890733136760364,
+      "latency_ms": 4.83
     },
     {
       "ride_id": 37,
       "actual_fare": 154.71,
       "pred_fare": 73.0899413196803,
       "actual_eta": 28.39,
-      "pred_eta": 11.717059475284383,
-      "latency_ms": 5.27
+      "pred_eta": 11.9761932415982,
+      "latency_ms": 4.81
     },
     {
       "ride_id": 38,
       "actual_fare": 131.61,
       "pred_fare": 71.02795439522512,
       "actual_eta": 16.58,
-      "pred_eta": 10.156132432852896,
-      "latency_ms": 6.12
+      "pred_eta": 10.214926773480695,
+      "latency_ms": 5.16
     },
     {
       "ride_id": 39,
       "actual_fare": 62.05,
       "pred_fare": 33.53185178561692,
       "actual_eta": 4.86,
-      "pred_eta": 3.5340310866359275,
-      "latency_ms": 7.52
+      "pred_eta": 2.547577022584523,
+      "latency_ms": 5.77
     },
     {
       "ride_id": 40,
       "actual_fare": 162.56,
       "pred_fare": 123.65524748212226,
       "actual_eta": 26.86,
-      "pred_eta": 21.020521184814193,
-      "latency_ms": 4.73
+      "pred_eta": 21.262614888340643,
+      "latency_ms": 5.04
     },
     {
       "ride_id": 41,
       "actual_fare": 130.81,
       "pred_fare": 87.07853852916269,
       "actual_eta": 25.22,
-      "pred_eta": 13.132427473674296,
-      "latency_ms": 4.65
+      "pred_eta": 12.59832192997106,
+      "latency_ms": 4.71
     },
     {
       "ride_id": 42,
       "actual_fare": 95.39,
       "pred_fare": 70.31620950464225,
       "actual_eta": 9.95,
-      "pred_eta": 8.649320665913214,
-      "latency_ms": 4.54
+      "pred_eta": 8.64767639250838,
+      "latency_ms": 6.71
     },
     {
       "ride_id": 43,
       "actual_fare": 94.63,
       "pred_fare": 77.05775175696662,
       "actual_eta": 12.3,
-      "pred_eta": 10.429182494197157,
-      "latency_ms": 4.34
+      "pred_eta": 10.780996760255551,
+      "latency_ms": 4.9
     },
     {
       "ride_id": 44,
       "actual_fare": 148.14,
       "pred_fare": 135.43417986644684,
       "actual_eta": 28.92,
-      "pred_eta": 21.207239704278606,
-      "latency_ms": 4.74
+      "pred_eta": 21.559236471606944,
+      "latency_ms": 4.61
     },
     {
       "ride_id": 45,
       "actual_fare": 177.9,
       "pred_fare": 88.79326102223182,
       "actual_eta": 23.16,
-      "pred_eta": 13.69019201580354,
-      "latency_ms": 5.04
+      "pred_eta": 14.253659041181571,
+      "latency_ms": 6.26
     },
     {
       "ride_id": 46,
       "actual_fare": 189.61,
       "pred_fare": 113.6420084698685,
       "actual_eta": 36.08,
-      "pred_eta": 16.858853107394644,
-      "latency_ms": 4.88
+      "pred_eta": 17.53034913101655,
+      "latency_ms": 5.6
     },
     {
       "ride_id": 47,
       "actual_fare": 153.55,
       "pred_fare": 97.65886060720949,
       "actual_eta": 27.59,
-      "pred_eta": 12.939178149748466,
-      "latency_ms": 37.2
+      "pred_eta": 13.600025670742786,
+      "latency_ms": 6.3
     },
     {
       "ride_id": 48,
       "actual_fare": 182.87,
       "pred_fare": 121.60125800515016,
       "actual_eta": 32.68,
-      "pred_eta": 18.758389142247708,
-      "latency_ms": 4.67
+      "pred_eta": 18.988731348083892,
+      "latency_ms": 4.29
     },
     {
       "ride_id": 49,
       "actual_fare": 136.32,
       "pred_fare": 105.80925028537366,
       "actual_eta": 23.74,
-      "pred_eta": 17.53979133571662,
-      "latency_ms": 6.88
+      "pred_eta": 17.64038935521071,
+      "latency_ms": 4.43
     },
     {
       "ride_id": 50,
       "actual_fare": 143.95,
       "pred_fare": 127.32320655443016,
       "actual_eta": 17.66,
-      "pred_eta": 22.49584801247805,
-      "latency_ms": 5.31
+      "pred_eta": 22.564525266306283,
+      "latency_ms": 5.65
     },
     {
       "ride_id": 51,
       "actual_fare": 200.97,
       "pred_fare": 165.0281467475325,
       "actual_eta": 40.08,
-      "pred_eta": 26.47765445187031,
-      "latency_ms": 4.86
+      "pred_eta": 27.101167539491065,
+      "latency_ms": 5.54
     },
     {
       "ride_id": 52,
       "actual_fare": 134.62,
       "pred_fare": 103.14235636888505,
       "actual_eta": 26.29,
-      "pred_eta": 16.52876221168903,
-      "latency_ms": 5.34
+      "pred_eta": 16.366619315977733,
+      "latency_ms": 5.28
     },
     {
       "ride_id": 53,
       "actual_fare": 121.52,
       "pred_fare": 92.2802526585879,
       "actual_eta": 21.47,
-      "pred_eta": 12.641773272294094,
-      "latency_ms": 5.28
+      "pred_eta": 12.389751230716449,
+      "latency_ms": 4.69
     },
     {
       "ride_id": 54,
       "actual_fare": 190.37,
       "pred_fare": 157.26169769114165,
       "actual_eta": 38.24,
-      "pred_eta": 25.276395088247018,
-      "latency_ms": 5.0
+      "pred_eta": 25.606855129858634,
+      "latency_ms": 5.24
     },
     {
       "ride_id": 55,
       "actual_fare": 252.19,
       "pred_fare": 215.10778461259065,
       "actual_eta": 49.77,
-      "pred_eta": 36.8226564546331,
-      "latency_ms": 4.28
+      "pred_eta": 38.224486637934675,
+      "latency_ms": 5.26
     },
     {
       "ride_id": 56,
       "actual_fare": 173.19,
       "pred_fare": 163.56099677205265,
       "actual_eta": 32.62,
-      "pred_eta": 27.47929323432635,
-      "latency_ms": 5.73
+      "pred_eta": 27.256961286835974,
+      "latency_ms": 6.11
     },
     {
       "ride_id": 57,
       "actual_fare": 45.36,
       "pred_fare": 25.71988158470718,
       "actual_eta": 4.28,
-      "pred_eta": 1.1798521628678955,
-      "latency_ms": 36.88
+      "pred_eta": 0.47371632644263073,
+      "latency_ms": 38.11
     },
     {
       "ride_id": 58,
       "actual_fare": 129.4,
       "pred_fare": 88.46433978316877,
       "actual_eta": 15.74,
-      "pred_eta": 14.70040032584791,
-      "latency_ms": 4.65
+      "pred_eta": 14.346240569549733,
+      "latency_ms": 5.34
     },
     {
       "ride_id": 59,
       "actual_fare": 184.78,
       "pred_fare": 160.61104620086678,
       "actual_eta": 36.59,
-      "pred_eta": 26.401620727926037,
-      "latency_ms": 4.66
+      "pred_eta": 26.55413273348793,
+      "latency_ms": 5.76
     },
     {
       "ride_id": 60,
       "actual_fare": 248.3,
       "pred_fare": 196.40716149488813,
       "actual_eta": 41.51,
-      "pred_eta": 34.55586724113154,
-      "latency_ms": 4.76
+      "pred_eta": 33.963428732439525,
+      "latency_ms": 5.5
     },
     {
       "ride_id": 61,
       "actual_fare": 124.59,
       "pred_fare": 104.96246387006371,
       "actual_eta": 19.06,
-      "pred_eta": 15.820734372362399,
-      "latency_ms": 4.76
+      "pred_eta": 15.485482441764649,
+      "latency_ms": 5.06
     },
     {
       "ride_id": 62,
       "actual_fare": 108.8,
       "pred_fare": 86.64784269644062,
       "actual_eta": 16.38,
-      "pred_eta": 13.037272271311952,
-      "latency_ms": 4.35
+      "pred_eta": 12.447809524859164,
+      "latency_ms": 6.23
     },
     {
       "ride_id": 63,
       "actual_fare": 193.15,
       "pred_fare": 157.43072598638653,
       "actual_eta": 38.3,
-      "pred_eta": 25.304713651673744,
-      "latency_ms": 4.39
+      "pred_eta": 25.155769405395617,
+      "latency_ms": 4.65
     },
     {
       "ride_id": 64,
       "actual_fare": 63.32,
       "pred_fare": 39.78440199990284,
       "actual_eta": 5.34,
-      "pred_eta": 4.8717143883331975,
-      "latency_ms": 4.95
+      "pred_eta": 4.482268344448444,
+      "latency_ms": 4.4
     },
     {
       "ride_id": 65,
       "actual_fare": 109.06,
       "pred_fare": 96.99196193892011,
       "actual_eta": 17.85,
-      "pred_eta": 15.351649907199132,
-      "latency_ms": 4.41
+      "pred_eta": 14.967786255186285,
+      "latency_ms": 5.33
     },
     {
       "ride_id": 66,
       "actual_fare": 232.65,
       "pred_fare": 183.8433146936219,
       "actual_eta": 54.82,
-      "pred_eta": 32.52723832684084,
-      "latency_ms": 5.1
+      "pred_eta": 32.33291795053509,
+      "latency_ms": 4.88
     },
     {
       "ride_id": 67,
       "actual_fare": 88.37,
       "pred_fare": 70.80125438641318,
       "actual_eta": 9.85,
-      "pred_eta": 8.494334215223208,
-      "latency_ms": 4.96
+      "pred_eta": 8.660333877569098,
+      "latency_ms": 4.79
     },
     {
       "ride_id": 68,
       "actual_fare": 133.37,
       "pred_fare": 106.28316630372878,
       "actual_eta": 24.96,
-      "pred_eta": 17.743921032928487,
-      "latency_ms": 5.76
+      "pred_eta": 18.038152111539443,
+      "latency_ms": 5.79
     },
     {
       "ride_id": 69,
       "actual_fare": 69.41,
       "pred_fare": 52.16857083193428,
       "actual_eta": 5.31,
-      "pred_eta": 6.373390125164127,
-      "latency_ms": 4.28
+      "pred_eta": 7.228695471811614,
+      "latency_ms": 6.27
     },
     {
       "ride_id": 70,
       "actual_fare": 256.01,
       "pred_fare": 233.0015923000812,
       "actual_eta": 54.2,
-      "pred_eta": 42.524879261744516,
-      "latency_ms": 4.01
+      "pred_eta": 43.00798256907191,
+      "latency_ms": 5.28
     },
     {
       "ride_id": 71,
       "actual_fare": 135.6,
       "pred_fare": 115.82891375596313,
       "actual_eta": 19.06,
-      "pred_eta": 19.389205595015405,
-      "latency_ms": 4.4
+      "pred_eta": 19.649152617064534,
+      "latency_ms": 5.86
     },
     {
       "ride_id": 72,
       "actual_fare": 187.28,
       "pred_fare": 152.49903247473563,
       "actual_eta": 39.58,
-      "pred_eta": 25.14266401569332,
-      "latency_ms": 4.7
+      "pred_eta": 25.744343811094954,
+      "latency_ms": 5.87
     },
     {
       "ride_id": 73,
       "actual_fare": 166.29,
       "pred_fare": 145.17531442324835,
       "actual_eta": 28.92,
-      "pred_eta": 21.999335288781115,
-      "latency_ms": 4.34
+      "pred_eta": 22.365075129365206,
+      "latency_ms": 5.62
     },
     {
       "ride_id": 74,
       "actual_fare": 159.05,
       "pred_fare": 144.3817154091219,
       "actual_eta": 29.98,
-      "pred_eta": 24.032358933934418,
-      "latency_ms": 5.29
+      "pred_eta": 24.483899138024206,
+      "latency_ms": 5.27
     },
     {
       "ride_id": 75,
       "actual_fare": 94.35,
       "pred_fare": 71.05694037405257,
       "actual_eta": 9.79,
-      "pred_eta": 8.79520401612479,
-      "latency_ms": 4.93
+      "pred_eta": 8.968204094320562,
+      "latency_ms": 6.02
     },
     {
       "ride_id": 76,
       "actual_fare": 123.97,
       "pred_fare": 110.41974326720795,
       "actual_eta": 13.43,
-      "pred_eta": 16.164776957426565,
-      "latency_ms": 4.21
+      "pred_eta": 16.417562974132725,
+      "latency_ms": 4.44
     },
     {
       "ride_id": 77,
       "actual_fare": 123.75,
       "pred_fare": 113.85106322563655,
       "actual_eta": 24.37,
-      "pred_eta": 16.633912144542496,
-      "latency_ms": 4.54
+      "pred_eta": 16.120002268935856,
+      "latency_ms": 4.45
     },
     {
       "ride_id": 78,
       "actual_fare": 126.7,
       "pred_fare": 117.05535593541995,
       "actual_eta": 25.53,
-      "pred_eta": 17.406786161388204,
-      "latency_ms": 5.46
+      "pred_eta": 17.323657459672464,
+      "latency_ms": 4.45
     },
     {
       "ride_id": 79,
       "actual_fare": 185.98,
       "pred_fare": 158.16591974098503,
       "actual_eta": 31.64,
-      "pred_eta": 27.657512764514024,
-      "latency_ms": 4.92
+      "pred_eta": 27.914932546590858,
+      "latency_ms": 5.16
     },
     {
       "ride_id": 80,
@@ -1210,159 +1210,159 @@
       "pred_fare": 17.305850415981098,
       "actual_eta": 2.15,
       "pred_eta": 0.0,
-      "latency_ms": 4.18
+      "latency_ms": 6.41
     },
     {
       "ride_id": 81,
       "actual_fare": 100.42,
       "pred_fare": 87.18624107009428,
       "actual_eta": 11.67,
-      "pred_eta": 11.879521753923962,
-      "latency_ms": 4.12
+      "pred_eta": 11.82008714896278,
+      "latency_ms": 5.55
     },
     {
       "ride_id": 82,
       "actual_fare": 68.41,
       "pred_fare": 37.693065814617725,
       "actual_eta": 8.07,
-      "pred_eta": 2.9589335141980158,
-      "latency_ms": 4.24
+      "pred_eta": 2.910396478764751,
+      "latency_ms": 5.01
     },
     {
       "ride_id": 83,
       "actual_fare": 119.95,
       "pred_fare": 115.24115017606985,
       "actual_eta": 16.85,
-      "pred_eta": 19.41875941915353,
-      "latency_ms": 4.19
+      "pred_eta": 19.548381995339184,
+      "latency_ms": 4.32
     },
     {
       "ride_id": 84,
       "actual_fare": 251.88,
       "pred_fare": 265.188036156559,
       "actual_eta": 63.19,
-      "pred_eta": 48.277754359103106,
-      "latency_ms": 4.13
+      "pred_eta": 47.98343709770732,
+      "latency_ms": 4.43
     },
     {
       "ride_id": 85,
       "actual_fare": 90.45,
       "pred_fare": 79.9770584921738,
       "actual_eta": 13.28,
-      "pred_eta": 10.479257215174092,
-      "latency_ms": 4.06
+      "pred_eta": 10.385592269323707,
+      "latency_ms": 4.71
     },
     {
       "ride_id": 86,
       "actual_fare": 223.65,
       "pred_fare": 197.72172522417014,
       "actual_eta": 45.4,
-      "pred_eta": 34.34074565444638,
-      "latency_ms": 4.34
+      "pred_eta": 34.493446471032115,
+      "latency_ms": 4.56
     },
     {
       "ride_id": 87,
       "actual_fare": 77.98,
       "pred_fare": 57.975048706997185,
       "actual_eta": 9.61,
-      "pred_eta": 6.030686964253489,
-      "latency_ms": 3.91
+      "pred_eta": 6.093268450216042,
+      "latency_ms": 4.82
     },
     {
       "ride_id": 88,
       "actual_fare": 167.95,
       "pred_fare": 154.1201747817094,
       "actual_eta": 32.95,
-      "pred_eta": 26.445302337779726,
-      "latency_ms": 37.57
+      "pred_eta": 27.218278123050368,
+      "latency_ms": 37.17
     },
     {
       "ride_id": 89,
       "actual_fare": 147.22,
       "pred_fare": 127.48423037170112,
       "actual_eta": 20.17,
-      "pred_eta": 20.02580928372992,
-      "latency_ms": 5.2
+      "pred_eta": 20.489173083423996,
+      "latency_ms": 5.03
     },
     {
       "ride_id": 90,
       "actual_fare": 98.34,
       "pred_fare": 81.88174145422526,
       "actual_eta": 18.73,
-      "pred_eta": 10.861605675082059,
-      "latency_ms": 4.02
+      "pred_eta": 10.796243375775617,
+      "latency_ms": 4.14
     },
     {
       "ride_id": 91,
       "actual_fare": 56.92,
       "pred_fare": 23.57717804407676,
       "actual_eta": 4.3,
-      "pred_eta": 0.0,
-      "latency_ms": 15.59
+      "pred_eta": 0.014086949974329244,
+      "latency_ms": 4.59
     },
     {
       "ride_id": 92,
       "actual_fare": 125.98,
       "pred_fare": 131.4270099760751,
       "actual_eta": 24.51,
-      "pred_eta": 22.721448491255153,
-      "latency_ms": 4.46
+      "pred_eta": 23.116473365255484,
+      "latency_ms": 4.1
     },
     {
       "ride_id": 93,
       "actual_fare": 159.54,
       "pred_fare": 151.2984750757904,
       "actual_eta": 29.08,
-      "pred_eta": 24.63767602949992,
-      "latency_ms": 4.54
+      "pred_eta": 25.401860715040964,
+      "latency_ms": 6.2
     },
     {
       "ride_id": 94,
       "actual_fare": 125.79,
       "pred_fare": 127.15217786035892,
       "actual_eta": 18.5,
-      "pred_eta": 19.702181167505746,
-      "latency_ms": 4.18
+      "pred_eta": 20.205819996177638,
+      "latency_ms": 4.87
     },
     {
       "ride_id": 95,
       "actual_fare": 124.23,
       "pred_fare": 123.35227000152832,
       "actual_eta": 21.49,
-      "pred_eta": 19.054826765580106,
-      "latency_ms": 4.47
+      "pred_eta": 19.665719527555247,
+      "latency_ms": 6.53
     },
     {
       "ride_id": 96,
       "actual_fare": 147.45,
       "pred_fare": 118.4672834667747,
       "actual_eta": 18.37,
-      "pred_eta": 19.641063234595357,
-      "latency_ms": 4.09
+      "pred_eta": 19.43956113906623,
+      "latency_ms": 4.13
     },
     {
       "ride_id": 97,
       "actual_fare": 128.47,
       "pred_fare": 122.44774559448784,
       "actual_eta": 20.83,
-      "pred_eta": 18.34996988245275,
-      "latency_ms": 4.14
+      "pred_eta": 18.48237340038252,
+      "latency_ms": 4.95
     },
     {
       "ride_id": 98,
       "actual_fare": 111.15,
       "pred_fare": 115.72246306349379,
       "actual_eta": 18.01,
-      "pred_eta": 16.33386674539037,
-      "latency_ms": 4.63
+      "pred_eta": 17.058808701060332,
+      "latency_ms": 4.39
     },
     {
       "ride_id": 99,
       "actual_fare": 102.43,
       "pred_fare": 82.09568799439693,
       "actual_eta": 12.18,
-      "pred_eta": 13.562397436729732,
-      "latency_ms": 4.9
+      "pred_eta": 13.746960769378239,
+      "latency_ms": 4.46
     }
   ]
 }
