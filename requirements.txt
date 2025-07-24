@@ -11,3 +11,6 @@ altair==5.3.0
 matplotlib==3.8.4
 seaborn==0.12.2
 tqdm==4.66.4
+skl2onnx==1.14.1 
+onnx==1.15.0 
+onnxruntime==1.17.1
